@@ -1,0 +1,539 @@
+/* A Casa do Breu: folha de estilo compartilhada */
+
+:root {
+  --noite: #08090c;
+  --noite-2: #0f1116;
+  --creme: #e9e4da;
+  --creme-2: #a8a296;
+  --ambar: #f2a33a;
+  --linha: rgba(233, 228, 218, 0.14);
+
+  --serifa: "Cormorant Garamond", "Garamond", "Times New Roman", serif;
+  --texto: "Karla", "Helvetica Neue", Arial, sans-serif;
+
+  --margem: 16px;
+  --largura: 68rem;
+
+  color-scheme: dark;
+}
+
+@media (min-width: 640px) {
+  :root { --margem: clamp(24px, 5vw, 64px); }
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--noite);
+  color: var(--creme);
+  font-family: var(--texto);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+
+a {
+  color: var(--creme);
+  text-decoration-color: rgba(242, 163, 58, 0.5);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+a:hover { color: var(--ambar); }
+
+a:focus-visible {
+  outline: 2px solid var(--ambar);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+h1, h2 {
+  font-family: var(--serifa);
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.recuo {
+  width: 100%;
+  max-width: calc(var(--largura) + 2 * var(--margem));
+  margin-inline: auto;
+  padding-inline: var(--margem);
+}
+
+/* ---------- Capa (index) ---------- */
+
+.capa {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: flex-end;
+  min-height: 50vh;
+  min-height: 50svh;
+  padding-block: 3rem clamp(2.5rem, 8vh, 4.5rem);
+  background:
+    linear-gradient(180deg, rgba(8, 9, 12, 0.55) 0%, rgba(8, 9, 12, 0.25) 35%, rgba(8, 9, 12, 0.8) 78%, var(--noite) 100%),
+    linear-gradient(270deg, rgba(8, 9, 12, 0.8) 0%, rgba(8, 9, 12, 0) 60%),
+    url("fundo.jpg") 25% center / cover no-repeat,
+    var(--noite);
+}
+
+/* Véu preto que se levanta ao carregar: o único movimento automático da página */
+.capa::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--noite);
+  opacity: 0;
+  animation: veu 2.4s ease-out both;
+  pointer-events: none;
+}
+
+.capa .recuo { display: flex; justify-content: flex-end; }
+
+/* nome do lado direito, como no banner do YouTube; a casa acesa fica livre à esquerda */
+.capa-texto {
+  text-align: right;
+  animation: surgir 1.4s ease-out 0.9s both;
+}
+
+.capa-texto .logo { margin-left: auto; }
+
+.capa .logo {
+  width: clamp(64px, 16vw, 96px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  margin-bottom: 1.1rem;
+  box-shadow:
+    0 0 0 1px rgba(242, 163, 58, 0.35),
+    0 0 48px 4px rgba(242, 163, 58, 0.18);
+}
+
+.capa h1 {
+  font-weight: 300;
+  font-size: clamp(2.4rem, 10vw, 4.8rem);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+}
+
+.capa .assinatura {
+  margin: 0.9rem 0 0;
+  font-family: var(--texto);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-size: clamp(0.72rem, 2.4vw, 0.9rem);
+  line-height: 1.5;
+  color: var(--creme);
+  opacity: 0.82;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9);
+}
+
+.capa .descricao {
+  margin: 0.9rem 0 0 auto;
+  max-width: 30ch;
+  font-family: var(--serifa);
+  font-size: clamp(1.05rem, 3.4vw, 1.3rem);
+  line-height: 1.35;
+  color: var(--creme-2);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9);
+}
+
+@keyframes veu {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes surgir {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .capa::after,
+  .capa-texto { animation: none; }
+  .canal-nome::before { transition: none; }
+}
+
+/* ---------- Seções (index) ---------- */
+
+.apresentacao {
+  padding-block: clamp(1.25rem, 3.5vw, 2rem);
+}
+
+.apresentacao p {
+  margin: 0;
+  max-width: 26ch;
+  font-family: var(--serifa);
+  font-weight: 400;
+  font-size: clamp(1.35rem, 4.6vw, 2rem);
+  line-height: 1.25;
+}
+
+.secao {
+  padding-block: clamp(1rem, 3.5vw, 1.75rem);
+  border-top: 1px solid var(--linha);
+}
+
+.secao h2 {
+  font-size: clamp(1.5rem, 4.6vw, 1.9rem);
+  margin-bottom: 0.5rem;
+}
+
+.secao .texto { margin: 0; max-width: 42rem; color: var(--creme-2); }
+
+@media (min-width: 820px) {
+  .secao {
+    display: grid;
+    grid-template-columns: 13rem 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  .secao h2 { margin-bottom: 0; }
+}
+
+/* Onde assistir: cada plataforma é uma janela que acende */
+.canais {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.canais li + li { border-top: 1px solid var(--linha); }
+
+.canais a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-height: 44px;
+  padding: 0.4rem 0;
+  text-decoration: none;
+}
+
+.canal-nome {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  font-family: var(--serifa);
+  font-weight: 500;
+  font-size: clamp(1.25rem, 4.2vw, 1.5rem);
+  line-height: 1.1;
+}
+
+.canal-nome::before {
+  content: "";
+  flex: none;
+  width: 0.42em;
+  height: 0.6em;
+  background: var(--ambar);
+  opacity: 0.22;
+  transition: opacity 0.35s ease, box-shadow 0.35s ease;
+}
+
+.canal-end {
+  padding-left: calc(0.42em + 0.85rem);
+  font-size: 0.875rem;
+  color: var(--creme-2);
+  overflow-wrap: anywhere;
+}
+
+.canais a:hover .canal-nome::before,
+.canais a:focus-visible .canal-nome::before {
+  opacity: 1;
+  box-shadow: 0 0 14px 2px rgba(242, 163, 58, 0.45);
+}
+
+.canais a:hover .canal-end,
+.canais a:focus-visible .canal-end { color: var(--creme); }
+
+.contato {
+  margin: 0;
+  font-family: var(--serifa);
+  font-size: clamp(1.2rem, 4.4vw, 1.5rem);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 560px) {
+  .canais a {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .canal-end { padding-left: 0; }
+}
+
+/* ---------- Páginas de texto (privacidade, termos e retorno do TikTok) ---------- */
+
+.topo-doc {
+  position: relative;
+  padding-block: 1rem 1.75rem;
+  background:
+    linear-gradient(180deg, rgba(8, 9, 12, 0.6) 0%, rgba(8, 9, 12, 0.82) 60%, var(--noite) 100%),
+    url("fundo.jpg") center 60% / cover no-repeat,
+    var(--noite);
+}
+
+.marca {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 48px;
+  font-family: var(--serifa);
+  font-weight: 500;
+  font-size: 1.3rem;
+  text-decoration: none;
+}
+
+.marca img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(242, 163, 58, 0.35);
+}
+
+.topo-doc h1 {
+  margin-top: clamp(2rem, 7vw, 3.5rem);
+  font-weight: 300;
+  font-size: clamp(2rem, 8vw, 3.2rem);
+  line-height: 1;
+}
+
+.data {
+  margin: 0.9rem 0 0;
+  font-size: 0.9375rem;
+  color: var(--creme-2);
+}
+
+.documento {
+  padding-block: 1rem clamp(3rem, 10vw, 5rem);
+}
+
+.documento > * { max-width: 42rem; }
+
+.documento p,
+.documento ul { margin: 0 0 1.15rem; }
+
+.documento ul { padding-left: 1.2rem; }
+
+.documento li { margin-bottom: 0.4rem; }
+
+.documento li::marker { color: var(--ambar); }
+
+.documento h2 {
+  margin: 2.5rem 0 0.75rem;
+  font-size: clamp(1.6rem, 5vw, 2rem);
+}
+
+.documento a { overflow-wrap: anywhere; }
+
+.nota {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--linha);
+  margin-top: 2.5rem;
+}
+
+.resumo {
+  margin-top: 3rem;
+  padding: 1.5rem 1.25rem;
+  background: var(--noite-2);
+  border-left: 2px solid var(--ambar);
+}
+
+.resumo h2 { margin-top: 0; }
+
+.resumo p:last-child { margin-bottom: 0; }
+
+/* ---------- Rodapé ---------- */
+
+.rodape {
+  border-top: 1px solid var(--linha);
+  padding-block: 1.25rem 1.5rem;
+  font-size: 0.9375rem;
+  color: var(--creme-2);
+}
+
+.rodape .recuo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+}
+
+.rodape-nome {
+  margin: 0;
+  font-family: var(--serifa);
+  font-size: 1.25rem;
+  color: var(--creme);
+}
+
+.rodape ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 559px) {
+  .rodape .recuo { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+}
+
+@media (min-width: 560px) {
+  .rodape ul { flex-direction: row; flex-wrap: wrap; gap: 0.25rem 1.5rem; }
+}
+
+.rodape a {
+  display: inline-block;
+  padding-block: 0.6rem;
+  color: var(--creme-2);
+  text-decoration: none;
+}
+
+.rodape a:hover,
+.rodape a[aria-current="page"] { color: var(--creme); }
+
+.rodape a[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-color: var(--ambar);
+}
+
+/* Celular: a casa acesa ocupa a metade de cima; o nome desce para a rua, sem cobrir a casa */
+@media (max-width: 639px) {
+  .capa {
+    min-height: 58svh;
+    padding-block: 3rem 1.25rem;
+    background-position: 0 0, 0 0, 22% -70px, 0 0;
+  }
+}
+
+/* ---------- Ajustes de 03/10 (noite): rótulos menores, títulos mais firmes ---------- */
+.capa h1 { font-weight: 400; }
+
+.secao h2 {
+  font-family: var(--texto);
+  font-weight: 500;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  line-height: 1.6;
+  color: var(--creme-2);
+  padding-top: 0.55rem;
+}
+
+@media (min-width: 820px) {
+  .secao { grid-template-columns: 12rem 1fr; }
+}
+
+.canal-nome { font-size: clamp(1.15rem, 3.8vw, 1.35rem); }
+.canal-end { font-size: 0.8125rem; }
+.contato { font-family: var(--texto); font-size: 1rem; }
+.secao .texto { font-size: 0.95rem; }
+.rodape { font-size: 0.875rem; }
+.rodape-nome { font-size: 1.1rem; }
+
+/* ---------- Ajustes 2: alinhamento, largura e marcador ---------- */
+@media (min-width: 820px) {
+  .secao { align-items: baseline; }
+}
+.secao h2 { padding-top: 0; }
+.canais, .secao .texto, .contato { max-width: 34rem; }
+
+.canal-nome { align-items: center; }
+.canal-nome::before {
+  width: 0.32em;
+  height: 0.32em;
+  border-radius: 50%;
+  opacity: 0.55;
+}
+.canal-nome { font-size: clamp(1.05rem, 3.4vw, 1.15rem); }
+
+/* ---------- Ícones das redes (Simple Icons, CC0) no lugar do marcador ---------- */
+.canal-nome::before { content: none; }
+.canal-nome { gap: 0.7rem; font-size: clamp(0.98rem, 3.2vw, 1.05rem); }
+.icone {
+  width: 1.05em;
+  height: 1.05em;
+  flex: none;
+  fill: var(--creme-2);
+  transition: fill 0.3s ease, filter 0.3s ease;
+}
+.canais a:hover .icone,
+.canais a:focus-visible .icone {
+  fill: var(--ambar);
+  filter: drop-shadow(0 0 6px rgba(242, 163, 58, 0.5));
+}
+.canal-end { padding-left: 0; }
+@media (max-width: 559px) { .canal-end { padding-left: calc(1.05em + 0.7rem); } }
+.canal-nome { font-size: clamp(1.1rem, 3.6vw, 1.25rem); }
+
+/* Contato e Sobre a publicação: secundários, menores (o principal é Onde assistir) */
+.secao.menor { padding-block: 0.85rem; }
+.secao.menor h2 { font-size: 0.68rem; }
+.secao.menor .contato { font-size: 0.875rem; }
+.secao.menor .texto { font-size: 0.8125rem; line-height: 1.6; }
+@media (min-width: 820px) {
+  .secao.menor + .secao.menor { border-top: none; padding-top: 0; }
+}
+
+/* Contato e Sobre lado a lado, pequenos */
+.secundario {
+  display: grid;
+  gap: 1rem 3rem;
+  padding-block: 1.1rem 1.4rem;
+  border-top: 1px solid var(--linha);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--creme-2);
+}
+@media (min-width: 720px) {
+  .secundario { grid-template-columns: minmax(12rem, 1fr) 2.4fr; }
+}
+.secundario h2 {
+  font-family: var(--texto);
+  font-weight: 500;
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: var(--creme-2);
+  margin: 0 0 0.35rem;
+}
+.secundario p { margin: 0; max-width: 40rem; }
+
+/* ---------- Histórias ---------- */
+.topo { display: flex; justify-content: space-between; align-items: center; padding-block: 20px; border-bottom: 1px solid var(--linha); }
+.topo-marca { font-family: var(--serifa); font-size: 1.4rem; text-decoration: none; }
+.historia { max-width: 40rem; margin: 48px auto 72px; }
+.historia h1, .lista-cabeca { font-family: var(--serifa); font-weight: 400; font-size: clamp(2.2rem, 7vw, 3.4rem); line-height: 1.05; margin: 8px 0 16px; }
+.historia p { font-family: var(--serifa); font-size: 1.3rem; line-height: 1.6; margin: 0 0 1.1em; }
+.historia .historia-ep { font-family: var(--texto); font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--creme-2); margin: 0; }
+.historia-aviso { font-family: var(--texto) !important; font-size: 0.9rem !important; color: var(--creme-2); margin-bottom: 28px !important; }
+.historia-fim { text-align: center; color: var(--ambar); margin-top: 2em !important; }
+.video { position: relative; aspect-ratio: 16 / 9; margin: 0 0 32px; background: var(--noite-2); }
+.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.lista-historias { list-style: none; padding: 0; margin: 24px 0 72px; max-width: 40rem; }
+.lista-historias li { border-top: 1px solid var(--linha); }
+.lista-historias a { display: grid; gap: 4px; padding: 20px 0; text-decoration: none; }
+.lista-ep { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--creme-2); }
+.lista-titulo { font-family: var(--serifa); font-size: 1.8rem; }
+.lista-chamada { color: var(--creme-2); }
+.lista-vazia { padding: 20px 0; color: var(--creme-2); }
+
+/* Contato e "Sobre a publicação": exigência da verificação do Google; fica presente, mas discreto */
+.secundario { opacity: 0.6; font-size: 0.8rem; }
+.secundario h2 { font-size: 0.95rem !important; letter-spacing: 0.06em; margin-bottom: 4px; }
+.secundario p { font-size: 0.8rem; line-height: 1.5; }

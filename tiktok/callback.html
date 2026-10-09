@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Autorização | A Casa do Breu</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500&family=Karla:wght@400&display=swap" />
+  <link rel="stylesheet" href="../estilo.css" />
+  <style>.topo-doc{background-image:linear-gradient(180deg,rgba(8,9,12,.6),var(--noite)),url("../fundo.jpg")}</style>
+</head>
+<body>
+  <header class="topo-doc"><div class="recuo">
+    <a class="marca" href="../index.html"><img src="../logo.png" width="40" height="40" alt="" />A Casa do Breu</a>
+    <h1>Autorização recebida</h1>
+    <p class="data" id="estado"></p>
+  </div></header>
+  <main class="documento recuo">
+    <p>Copie o endereço inteiro desta página, na barra do navegador, e mande para a sessão Conteudo.</p>
+  </main>
+  <script>
+    const q = new URLSearchParams(location.search);
+    document.getElementById("estado").textContent = q.get("code") ? "código presente" : (q.get("error") ? "erro: " + q.get("error") : "sem código");
+  </script>
+</body>
+</html>
